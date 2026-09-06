@@ -3,6 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  // Default the site to the Spanish homepage. Skip the redirect when the
+  // visitor came from an in-page anchor link (e.g. agents.html -> index.html#contact)
+  // or explicitly asked for English via the ES/EN toggle (?lang=en).
+  (function () {
+    var wantsEnglish = /(^|[?&])lang=en(&|$)/.test(location.search);
+    if (!wantsEnglish && !location.hash) {
+      location.replace('es/index.html');
+    }
+  })();
+</script>
 <title>Aibuildapp — AI rebuilds for web and apps</title>
 <meta name="description" content="Aibuildapp rebuilds your website or app with AI, automates your processes, and builds custom AI agents.">
 
