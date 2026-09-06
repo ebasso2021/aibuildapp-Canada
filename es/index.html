@@ -327,6 +327,10 @@
       <p style="font-size:16px; color:#AEB8CE; max-width:480px; margin:16px auto 0;">Cuéntanos con qué estás trabajando — te mostraremos cómo se ve una reconstrucción con IA.</p>
 
       <form id="bookingFormEs" style="max-width:480px; margin:36px auto 0; text-align:left; display:flex; flex-direction:column; gap:16px;">
+        <input type="hidden" name="_subject" value="Nueva solicitud de consulta — aibuildapp.net">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
         <div style="display:flex; gap:16px;">
           <div style="flex:1;">
             <label style="display:block; font-size:13px; font-weight:600; color:#AEB8CE; margin-bottom:6px;">Nombre</label>
@@ -357,8 +361,8 @@
           <label style="display:block; font-size:13px; font-weight:600; color:#AEB8CE; margin-bottom:6px;">Cuéntanos sobre tu proyecto</label>
           <textarea name="details" required rows="4" placeholder="¿Con qué estás trabajando y qué te gustaría mejorar con IA?" style="width:100%; background:#0A0E1A; border:1px solid rgba(255,255,255,0.14); border-radius:10px; padding:12px 14px; color:#F5F7FB; font-size:14.5px; font-family:'Manrope',sans-serif; resize:vertical;"></textarea>
         </div>
-        <button type="submit" class="btn-primary" style="background:linear-gradient(135deg,#22D3EE,#6366F1 55%,#A855F7); color:#0A0E1A; font-weight:700; font-size:15px; padding:16px 32px; border-radius:10px; border:none; cursor:pointer; font-family:'Manrope',sans-serif;">Reserva una consulta gratuita</button>
-        <span style="font-size:12.5px; color:#7C8798;">Esto abre tu aplicación de correo con los datos completados, dirigido a info@aibuildapp.net.</span>
+        <button type="submit" id="bookingSubmitEs" class="btn-primary" style="background:linear-gradient(135deg,#22D3EE,#6366F1 55%,#A855F7); color:#0A0E1A; font-weight:700; font-size:15px; padding:16px 32px; border-radius:10px; border:none; cursor:pointer; font-family:'Manrope',sans-serif;">Reserva una consulta gratuita</button>
+        <span id="bookingStatusEs" style="font-size:12.5px; color:#7C8798;">Se envía directo a nuestro equipo — no necesitas abrir tu correo.</span>
       </form>
     </div>
   </div>
@@ -436,23 +440,48 @@
 document.getElementById('bookingFormEs').addEventListener('submit', function (e) {
   e.preventDefault();
   var f = e.target;
-  var name = (f.fullName.value || '').trim();
-  var email = (f.email.value || '').trim();
-  var company = (f.company.value || '').trim();
-  var need = f.need.value;
-  var details = (f.details.value || '').trim();
-  var subject = 'Solicitud de consulta gratuita - ' + name;
-  var lines = [
-    'Nombre: ' + name,
-    'Correo: ' + email,
-    company ? ('Empresa: ' + company) : null,
-    'Interesado en: ' + need,
-    '',
-    details
-  ].filter(function (x) { return x !== null; });
-  var body = lines.join('\n');
-  var mailto = 'mailto:info@aibuildapp.net?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-  window.location.href = mailto;
+  var btn = document.getElementById('bookingSubmitEs');
+  var status = document.getElementById('bookingStatusEs');
+  var originalBtnText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Enviando…';
+  status.textContent = 'Enviando directamente a nuestro equipo…';
+  status.style.color = '#7C8798';
+
+  var payload = {
+    fullName: f.fullName.value.trim(),
+    email: f.email.value.trim(),
+    company: f.company.value.trim(),
+    need: f.need.value,
+    details: f.details.value.trim(),
+    _subject: 'Nueva solicitud de consulta — aibuildapp.net',
+    _template: 'table',
+    _captcha: 'false'
+  };
+  if (f._honey && f._honey.value) { payload._honey = f._honey.value; }
+
+  fetch('https://formsubmit.co/ajax/eleebasso_2003@yahoo.com', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+    .then(function (res) {
+      return res.json().then(function (data) { return { ok: res.ok, data: data }; });
+    })
+    .then(function (result) {
+      var success = result.ok && result.data && (result.data.success === 'true' || result.data.success === true);
+      if (!success) { throw new Error('send failed'); }
+      f.reset();
+      btn.textContent = 'Mensaje enviado';
+      status.textContent = '¡Gracias! Te contactaremos pronto.';
+      status.style.color = '#7DE0A6';
+    })
+    .catch(function () {
+      btn.disabled = false;
+      btn.textContent = originalBtnText;
+      status.innerHTML = 'Algo salió mal — escríbenos directamente a <a href="mailto:eleebasso_2003@yahoo.com" style="color:#F5F7FB; text-decoration:underline;">eleebasso_2003@yahoo.com</a>.';
+      status.style.color = '#F0A5A5';
+    });
 });
 
 (function () {
