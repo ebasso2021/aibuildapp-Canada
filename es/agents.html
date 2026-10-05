@@ -2,22 +2,21 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script>document.documentElement.className += ' js';</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Aibuildapp — Cómo funcionan nuestros agentes de IA</title>
+<script>document.documentElement.className += ' js';</script>
 <meta name="description" content="Descubre cómo funcionan los agentes de IA de Aibuildapp: el ciclo observar, pensar, actuar detrás de cada agente que construimos, con ejemplos reales.">
-<meta name="theme-color" content="#0A0E1A">
+<meta name="theme-color" content="#FFFCF7">
 <link rel="icon" href="../AibuildappLogo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="../assets/css/site.css">
 </head>
 <body>
 <header class="site-header">
   <div class="wrap nav">
-    <a class="brand" href="index.html" aria-label="Aibuildapp">
-      <svg aria-hidden="true" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <a class="brand" href="index.html" aria-label="Aibuildapp"><svg aria-hidden="true" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="logoNav" x1="10" y1="10" x2="110" y2="110" gradientUnits="userSpaceOnUse">
             <stop offset="0%" stop-color="#22D3EE"/>
@@ -42,9 +41,7 @@
         <path d="M 53.94,13.5 A 7,7 0 0 1 66.06,13.5" fill="none" stroke="url(#logoNav)" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
         <path d="M 56.54,15 A 4,4 0 0 1 63.46,15" fill="none" stroke="url(#logoNav)" stroke-width="1.8" stroke-linecap="round"/>
         <circle cx="60" cy="17" r="1.8" fill="url(#logoNav)"/>
-      </svg>
-      <span><span class="grad-text">Ai</span>buildapp</span>
-    </a>
+      </svg><span><span class="ai">Ai</span>buildapp</span></a>
     <button class="nav-toggle" type="button" aria-label="Menú" aria-expanded="false" aria-controls="navMenu"><span></span></button>
     <nav class="nav-menu" id="navMenu">
       <div class="nav-links">
@@ -66,85 +63,96 @@
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
-        <div class="pill"><i></i>Cómo funcionan nuestros agentes</div>
-        <h1>Los agentes funcionan en un ciclo: <span class="grad-text">observar, pensar, actuar</span> — y vuelta a empezar.</h1>
+        <div class="hello"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <circle cx="32" cy="32" r="31" fill="#FFE2CC"/>
+  <path d="M10.5 54 C13 45 22 41 32 41 C42 41 51 45 53.5 54 A31 31 0 0 1 10.5 54Z" fill="#1F8A70"/>
+  <path d="M26 41.5 L32 49 L38 41.5Z" fill="#FFF7EE"/>
+  <rect x="27" y="33" width="10" height="10" rx="4" fill="#B9774B"/>
+  <ellipse cx="19.5" cy="27" rx="2.6" ry="3.6" fill="#B9774B"/><ellipse cx="44.5" cy="27" rx="2.6" ry="3.6" fill="#B9774B"/>
+  <ellipse cx="32" cy="26" rx="12.8" ry="14" fill="#C98A5A"/>
+  <path d="M19.4 25 C18 12 25.5 8 32.5 8 C40.5 8 46.5 12.5 44.6 25 C43 18.5 38 15.5 32 16 C26 16.2 21.2 19 19.4 25Z" fill="#3B2620"/>
+  <path d="M20.5 29 C21.5 37.5 26.5 41 32 41 C37.5 41 42.5 37.5 43.5 29 C41.5 34.5 37.5 36.5 32 36.5 C26.5 36.5 22.5 34.5 20.5 29Z" fill="#3B2620"/>
+  <path d="M24.8 21 q3 -1.6 6 0 M33.2 21 q3 -1.6 6 0" fill="none" stroke="#3B2620" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M25 26 q2.6 -3 5.2 0 M33.8 26 q2.6 -3 5.2 0" fill="none" stroke="#2B2140" stroke-width="2" stroke-linecap="round"/>
+  <path d="M27.2 31 q4.8 4.4 9.6 0Z" fill="#FFF7EE" stroke="#2B2140" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="M16.8 26 a15.2 15.2 0 0 1 30.4 0" fill="none" stroke="#2B2140" stroke-width="2.6" stroke-linecap="round"/>
+  <rect x="13.6" y="22.5" width="6.4" height="10.5" rx="3.2" fill="#EE6C4D"/><rect x="44" y="22.5" width="6.4" height="10.5" rx="3.2" fill="#EE6C4D"/>
+  <path d="M16.8 32.5 q0.5 7 8.6 7.6" fill="none" stroke="#2B2140" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="26.2" cy="40" r="2.2" fill="#2B2140"/>
+</svg>Cómo funcionan nuestros agentes</div>
+        <h1>Los agentes funcionan en un ciclo: <span class="hl">observar, pensar, actuar</span> — y vuelta a empezar.</h1>
         <p class="lead">Quitando el ruido, un "agente" es un programa atrapado en un ritmo simple y repetitivo. Revisa el estado actual de las cosas, razona sobre qué hacer a continuación, realiza una acción y vuelve a revisar. A continuación desglosamos ese ciclo, seguido de tres ejemplos reales que hacen trabajos muy distintos.</p>
         <div class="btn-row">
           <a class="btn btn-primary" href="index.html#contact">Hablemos de tu proyecto</a>
           <a class="btn btn-ghost" href="#examples">Verlo en acción</a>
         </div>
       </div>
-      <div class="panel"><svg class="illus" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="OBSERVAR → PENSAR → ACTUAR">
-  <defs><linearGradient id="alpes" x1="0" y1="0" x2="320" y2="320" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#22D3EE"/><stop offset=".55" stop-color="#6366F1"/><stop offset="1" stop-color="#A855F7"/></linearGradient>
-  <marker id="alpesa" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8B93F5"/></marker></defs>
-  <circle cx="160" cy="160" r="104" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="22"/>
-  <path d="M 196,62 A 104 104 0 0 1 258,196" fill="none" stroke="url(#alpes)" stroke-width="3" stroke-linecap="round" marker-end="url(#alpesa)"/>
-  <path d="M 222,246 A 104 104 0 0 1 98,246" fill="none" stroke="url(#alpes)" stroke-width="3" stroke-linecap="round" marker-end="url(#alpesa)"/>
-  <path d="M 62,196 A 104 104 0 0 1 124,62" fill="none" stroke="url(#alpes)" stroke-width="3" stroke-linecap="round" marker-end="url(#alpesa)"/>
-  <g font-family="Space Grotesk, sans-serif" font-weight="700" font-size="13" text-anchor="middle" letter-spacing="1">
-    <rect x="110" y="40" width="100" height="40" rx="20" fill="#151B33" stroke="url(#alpes)" stroke-width="1.5"/><text x="160" y="65" fill="#F5F7FB">OBSERVAR</text>
-    <rect x="216" y="214" width="96" height="40" rx="20" fill="#151B33" stroke="url(#alpes)" stroke-width="1.5"/><text x="264" y="239" fill="#F5F7FB">PENSAR</text>
-    <rect x="8" y="214" width="96" height="40" rx="20" fill="#151B33" stroke="url(#alpes)" stroke-width="1.5"/><text x="56" y="239" fill="#F5F7FB">ACTUAR</text>
+      <div class="art butter"><svg class="illus" viewBox="0 0 340 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="OBSERVAR → PENSAR → ACTUAR">
+  <defs><marker id="alpesa" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#EE6C4D"/></marker></defs>
+  <circle cx="170" cy="166" r="104" fill="#FFFFFF" opacity=".6"/>
+  <path d="M206 68 A 104 104 0 0 1 268 202" fill="none" stroke="#EE6C4D" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 9" marker-end="url(#alpesa)"/>
+  <path d="M232 252 A 104 104 0 0 1 108 252" fill="none" stroke="#EE6C4D" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 9" marker-end="url(#alpesa)"/>
+  <path d="M72 202 A 104 104 0 0 1 134 68" fill="none" stroke="#EE6C4D" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 9" marker-end="url(#alpesa)"/>
+  <g font-family="Figtree, sans-serif" font-weight="800" font-size="14" text-anchor="middle" letter-spacing="1">
+    <rect x="114" y="44" width="112" height="42" rx="21" fill="#F4A62A"/><text x="170" y="70" fill="#2B2140">OBSERVAR</text>
+    <rect x="222" y="220" width="108" height="42" rx="21" fill="#1F8A70"/><text x="276" y="246" fill="#FFFFFF">PENSAR</text>
+    <rect x="10" y="220" width="108" height="42" rx="21" fill="#EE6C4D"/><text x="64" y="246" fill="#FFFFFF">ACTUAR</text>
   </g>
-  <g transform="translate(124,124) scale(1.5)">
-    <rect x="14" y="16" width="20" height="18" rx="6" fill="none" stroke="url(#alpes)" stroke-width="2.2"/>
-    <line x1="24" y1="16" x2="24" y2="10" stroke="url(#alpes)" stroke-width="2"/><circle cx="24" cy="8" r="2" fill="url(#alpes)"/>
-    <circle cx="19" cy="25" r="1.8" fill="url(#alpes)"/><circle cx="29" cy="25" r="1.8" fill="url(#alpes)"/>
-  </g>
-  <text x="160" y="200" text-anchor="middle" font-family="Manrope, sans-serif" font-size="12" font-weight="700" fill="#7C8798">y vuelta a empezar</text>
+  <g transform="translate(132 124) scale(1.2)">
+  <circle cx="32" cy="32" r="31" fill="#FFE2CC"/>
+  <path d="M10.5 54 C13 45 22 41 32 41 C42 41 51 45 53.5 54 A31 31 0 0 1 10.5 54Z" fill="#1F8A70"/>
+  <path d="M26 41.5 L32 49 L38 41.5Z" fill="#FFF7EE"/>
+  <rect x="27" y="33" width="10" height="10" rx="4" fill="#B9774B"/>
+  <ellipse cx="19.5" cy="27" rx="2.6" ry="3.6" fill="#B9774B"/><ellipse cx="44.5" cy="27" rx="2.6" ry="3.6" fill="#B9774B"/>
+  <ellipse cx="32" cy="26" rx="12.8" ry="14" fill="#C98A5A"/>
+  <path d="M19.4 25 C18 12 25.5 8 32.5 8 C40.5 8 46.5 12.5 44.6 25 C43 18.5 38 15.5 32 16 C26 16.2 21.2 19 19.4 25Z" fill="#3B2620"/>
+  <path d="M20.5 29 C21.5 37.5 26.5 41 32 41 C37.5 41 42.5 37.5 43.5 29 C41.5 34.5 37.5 36.5 32 36.5 C26.5 36.5 22.5 34.5 20.5 29Z" fill="#3B2620"/>
+  <path d="M24.8 21 q3 -1.6 6 0 M33.2 21 q3 -1.6 6 0" fill="none" stroke="#3B2620" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M25 26 q2.6 -3 5.2 0 M33.8 26 q2.6 -3 5.2 0" fill="none" stroke="#2B2140" stroke-width="2" stroke-linecap="round"/>
+  <path d="M27.2 31 q4.8 4.4 9.6 0Z" fill="#FFF7EE" stroke="#2B2140" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="M16.8 26 a15.2 15.2 0 0 1 30.4 0" fill="none" stroke="#2B2140" stroke-width="2.6" stroke-linecap="round"/>
+  <rect x="13.6" y="22.5" width="6.4" height="10.5" rx="3.2" fill="#EE6C4D"/><rect x="44" y="22.5" width="6.4" height="10.5" rx="3.2" fill="#EE6C4D"/>
+  <path d="M16.8 32.5 q0.5 7 8.6 7.6" fill="none" stroke="#2B2140" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="26.2" cy="40" r="2.2" fill="#2B2140"/>
+</g>
+  <text x="170" y="222" text-anchor="middle" font-family="Figtree, sans-serif" font-size="13" font-weight="700" fill="#776C85">y vuelta a empezar</text>
 </svg></div>
     </div>
   </section>
 
-  <section class="section" style="padding-top:0;">
+  <section class="section band">
     <div class="wrap loop-grid">
-      <article class="card reveal"><div class="tag grad-text">01 · OBSERVAR</div><h3>Lee lo que acaba de pasar</h3><p>Un mensaje, un archivo, un error, resultados de búsqueda. Es la única ventana del agente hacia el mundo — no sabe nada que no le hayas mostrado.</p></article>
-      <article class="card reveal"><div class="tag grad-text">02 · PENSAR</div><h3>Decide qué hacer a continuación</h3><p>Razona sobre lo que esa observación significa y elige un próximo paso: qué herramienta usar, qué buscar, qué escribir.</p></article>
-      <article class="card reveal"><div class="tag grad-text">03 · ACTUAR</div><h3>Hace esa única acción</h3><p>Luego devuelve el resultado a sí mismo como una nueva observación. El ciclo se cierra y comienza de nuevo, hasta que la tarea está terminada.</p></article>
+      <article class="card"><div class="tag">01 · OBSERVAR</div><h3>Lee lo que acaba de pasar</h3><p>Un mensaje, un archivo, un error, resultados de búsqueda. Es la única ventana del agente hacia el mundo — no sabe nada que no le hayas mostrado.</p></article>
+      <article class="card"><div class="tag">02 · PENSAR</div><h3>Decide qué hacer a continuación</h3><p>Razona sobre lo que esa observación significa y elige un próximo paso: qué herramienta usar, qué buscar, qué escribir.</p></article>
+      <article class="card"><div class="tag">03 · ACTUAR</div><h3>Hace esa única acción</h3><p>Luego devuelve el resultado a sí mismo como una nueva observación. El ciclo se cierra y comienza de nuevo, hasta que la tarea está terminada.</p></article>
     </div>
   </section>
 
-  <section class="section" id="examples" style="padding-top:24px;">
+  <section class="section" id="examples">
     <div class="wrap">
-      <div class="section-head reveal">
-        <div class="eyebrow">Mismo ciclo, distintos trabajos</div>
-        <h2>Tres agentes, un mismo ritmo</h2>
-      </div>
+      <div class="section-head"><div class="eyebrow">Mismo ciclo, distintos trabajos</div><h2>Tres agentes, un mismo ritmo</h2></div>
       <div class="examples">
-      <article class="example reveal">
+      <article class="example">
         <div class="example-media"><video src="../assets/agents/research.mp4" poster="../assets/agents/research-poster.jpg" autoplay loop muted playsinline preload="metadata"></video></div>
-        <div>
-          <div class="eyebrow">Asistente de investigación</div>
-          <h3>"¿Qué cambió en el nuevo tramo fiscal?"</h3>
-          <div class="loop-steps"><div><b class="grad-text">Observar</b><span>lee la pregunta y detecta que necesita datos actuales y verificados.</span></div><div><b class="grad-text">Pensar</b><span>decide qué buscar y qué fuentes comparar.</span></div><div><b class="grad-text">Actuar</b><span>redacta una respuesta breve y con fuentes.</span></div></div>
-        </div>
+        <div><div class="eyebrow">Asistente de investigación</div><h3>"¿Qué cambió en el nuevo tramo fiscal?"</h3><div class="loop-steps"><div><b>Observar</b><span>lee la pregunta y detecta que necesita datos actuales y verificados.</span></div><div><b>Pensar</b><span>decide qué buscar y qué fuentes comparar.</span></div><div><b>Actuar</b><span>redacta una respuesta breve y con fuentes.</span></div></div></div>
       </article>
-      <article class="example rev reveal">
+      <article class="example rev">
         <div class="example-media"><video src="../assets/agents/debug.mp4" poster="../assets/agents/debug-poster.jpg" autoplay loop muted playsinline preload="metadata"></video></div>
-        <div>
-          <div class="eyebrow">Agente de depuración</div>
-          <h3>"¿Por qué falla el pago?"</h3>
-          <div class="loop-steps"><div><b class="grad-text">Observar</b><span>lee el registro de errores y reproduce la falla.</span></div><div><b class="grad-text">Pensar</b><span>formula una hipótesis y elige el archivo más probable.</span></div><div><b class="grad-text">Actuar</b><span>edita el código y vuelve a correr las pruebas.</span></div></div>
-        </div>
+        <div><div class="eyebrow">Agente de depuración</div><h3>"¿Por qué falla el pago?"</h3><div class="loop-steps"><div><b>Observar</b><span>lee el registro de errores y reproduce la falla.</span></div><div><b>Pensar</b><span>formula una hipótesis y elige el archivo más probable.</span></div><div><b>Actuar</b><span>edita el código y vuelve a correr las pruebas.</span></div></div></div>
       </article>
-      <article class="example reveal">
+      <article class="example">
         <div class="example-media"><video src="../assets/agents/trip.mp4" poster="../assets/agents/trip-poster.jpg" autoplay loop muted playsinline preload="metadata"></video></div>
-        <div>
-          <div class="eyebrow">Planificador de viajes</div>
-          <h3>"Planea un fin de semana en Lisboa"</h3>
-          <div class="loop-steps"><div><b class="grad-text">Observar</b><span>revisa el calendario y el presupuesto indicado.</span></div><div><b class="grad-text">Pensar</b><span>compara vuelos y alojamiento según ese presupuesto.</span></div><div><b class="grad-text">Actuar</b><span>redacta un itinerario para revisar.</span></div></div>
-        </div>
+        <div><div class="eyebrow">Planificador de viajes</div><h3>"Planea un fin de semana en Lisboa"</h3><div class="loop-steps"><div><b>Observar</b><span>revisa el calendario y el presupuesto indicado.</span></div><div><b>Pensar</b><span>compara vuelos y alojamiento según ese presupuesto.</span></div><div><b>Actuar</b><span>redacta un itinerario para revisar.</span></div></div></div>
       </article>
       </div>
       <p class="note">Distintas herramientas, distintas tareas — cada agente anterior corre el mismo ciclo por debajo.</p>
     </div>
   </section>
 
-  <section class="section" style="padding-top:24px;">
+  <section class="section" style="padding-top:0;">
     <div class="wrap">
-      <div class="cta-band reveal">
-        <h2>¿Listo para poner un agente a trabajar en tu producto?</h2>
-        <p>Cuéntanos qué proceso te gustaría delegar — diseñamos el agente alrededor de tu flujo, no al revés.</p>
+      <div class="cta-band">
+        <div><h2>¿Listo para poner un agente a trabajar en tu producto?</h2><p>Cuéntanos qué proceso te gustaría delegar — diseñamos el agente alrededor de tu flujo, no al revés.</p></div>
         <a class="btn btn-primary" href="index.html#contact">Reservar una consulta gratuita</a>
       </div>
     </div>
@@ -180,20 +188,12 @@
         <path d="M 53.94,13.5 A 7,7 0 0 1 66.06,13.5" fill="none" stroke="url(#logoFoot)" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
         <path d="M 56.54,15 A 4,4 0 0 1 63.46,15" fill="none" stroke="url(#logoFoot)" stroke-width="1.8" stroke-linecap="round"/>
         <circle cx="60" cy="17" r="1.8" fill="url(#logoFoot)"/>
-      </svg><span><span class="grad-text">Ai</span>buildapp</span></a>
+      </svg><span><span class="ai">Ai</span>buildapp</span></a>
         <p class="footer-tag">Reconstrucciones con IA para web y apps.</p>
       </div>
       <div class="footer-cols">
-        <div>
-          <h4>Empresa</h4>
-          <a href="index.html#services">Servicios</a>
-          <a href="index.html#how-it-works">Cómo funciona</a>
-          <a href="agents.html">Agentes</a>
-        </div>
-        <div>
-          <h4>Contacto</h4>
-          <a href="mailto:info@aibuildapp.net">info@aibuildapp.net</a>
-        </div>
+        <div><h4>Empresa</h4><a href="index.html#services">Servicios</a><a href="index.html#how-it-works">Cómo funciona</a><a href="agents.html">Agentes</a></div>
+        <div><h4>Contacto</h4><a href="mailto:info@aibuildapp.net">info@aibuildapp.net</a></div>
       </div>
     </div>
     <p class="copyright">© 2026 Aibuildapp. Todos los derechos reservados.</p>
