@@ -31,6 +31,9 @@
     @keyframes botTilt { 0%, 100% { transform: rotate(-9deg); } 50% { transform: rotate(9deg); } }
     .bot-avatar-btn { animation: botFloat 3s ease-in-out infinite; }
     .bot-avatar-icon { display: block; transform-origin: 50% 68%; animation: botTilt 3.4s ease-in-out infinite; }
+    .services-grid4 { grid-template-columns: repeat(4, minmax(0,1fr)) !important; }
+    @media (max-width: 1180px) { .services-grid4 { grid-template-columns: repeat(2, minmax(0,1fr)) !important; } }
+    @media (max-width: 640px) { .services-grid4 { grid-template-columns: 1fr !important; } }
   </style>
 
 </head>
@@ -134,7 +137,7 @@
       <h2 style="font-size:38px; color:#F5F7FB; font-weight:700; margin-top:14px;">Todo lo necesario para que tu producto sea nativo en IA</h2>
     </div>
 
-    <div style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:24px; margin-top:56px;">
+    <div class="services-grid4" style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:24px; margin-top:56px;">
 
       <div class="card" style="background:#10152A; border:1px solid rgba(255,255,255,0.07); border-radius:16px; padding:32px;">
         <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -174,6 +177,19 @@
         </svg>
         <h3 style="font-size:19px; color:#F5F7FB; font-weight:700; margin-top:20px;">Agentes de IA personalizados</h3>
         <p style="font-size:14.5px; line-height:1.6; color:#AEB8CE; margin-top:10px;">Diseñamos y desplegamos agentes que realizan tareas reales — soporte, ingreso de datos, monitoreo, seguimiento — adaptados a cómo trabaja tu equipo.</p>
+      </div>
+
+      <div class="card" style="background:#10152A; border:1px solid rgba(255,255,255,0.07); border-radius:16px; padding:32px;">
+        <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="c5es" x1="6" y1="8" x2="42" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#22D3EE"/><stop offset="55%" stop-color="#6366F1"/><stop offset="100%" stop-color="#A855F7"/></linearGradient></defs>
+          <path d="M 11,27 V 23 A 13,13 0 0 1 37,23 V 27" fill="none" stroke="url(#c5es)" stroke-width="2.2" stroke-linecap="round"/>
+          <rect x="8" y="25" width="7" height="11" rx="3" fill="none" stroke="url(#c5es)" stroke-width="2"/>
+          <rect x="33" y="25" width="7" height="11" rx="3" fill="none" stroke="url(#c5es)" stroke-width="2"/>
+          <path d="M 36.5,36 V 37 A 4,4 0 0 1 32.5,41 H 27" fill="none" stroke="url(#c5es)" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="25.5" cy="41" r="2" fill="url(#c5es)"/>
+        </svg>
+        <h3 style="font-size:19px; color:#F5F7FB; font-weight:700; margin-top:20px;">Soporte técnico</h3>
+        <p style="font-size:14.5px; line-height:1.6; color:#AEB8CE; margin-top:10px;">Soporte y mantenimiento continuo para los sitios web, apps y agentes de IA que construimos — corrección de errores, actualizaciones, monitoreo y ayuda rápida cuando algo lo necesite.</p>
       </div>
 
       
@@ -353,6 +369,7 @@
               <option>Rediseño con IA</option>
               <option>Automatización de procesos</option>
               <option>Agentes de IA personalizados</option>
+              <option>Soporte técnico</option>
               <option>Otra cosa</option>
             </select>
           </div>
@@ -486,7 +503,7 @@ document.getElementById('bookingFormEs').addEventListener('submit', function (e)
 
 (function () {
   var messages = [
-    { from: 'bot', text: '¡Hola! Soy Edward, el asistente de Aibuildapp. Pregúntame sobre rediseños con IA, automatización de procesos o agentes de IA personalizados — o te ayudo a reservar una consulta gratuita.' }
+    { from: 'bot', text: '¡Hola! Soy Edward, el asistente de Aibuildapp. Pregúntame sobre rediseños con IA, automatización de procesos agentes de IA personalizados o soporte técnico — o te ayudo a reservar una consulta gratuita.' }
   ];
   var panel = document.getElementById('chatPanel');
   var list = document.getElementById('chatMessages');
@@ -523,6 +540,7 @@ document.getElementById('bookingFormEs').addEventListener('submit', function (e)
     if (/\bopc\b/.test(t) && /(agente|vs\.?|versus|diferen|compara)/.test(t)) return 'Buena pregunta — resuelven problemas distintos. OPC / OPC UA es un estándar de comunicación: estandariza cómo se mueven los datos entre máquinas, sensores y software, sin importar el fabricante. Un agente de automatización es software inteligente que consume esos datos — a menudo vía OPC UA — y actúa: decide, orquesta y ejecuta tareas. En resumen: OPC conecta tus sistemas, los agentes deciden y actúan sobre lo que esos sistemas reportan. Nosotros construimos ambas partes: la integración OPC UA para obtener datos confiables, y los agentes de IA que actúan sobre ellos.';
     if (/\bopc\b/.test(t)) return 'OPC — y su versión moderna, OPC UA (Open Platform Communications Unified Architecture) — es un estándar abierto de comunicación para automatización industrial. Define cómo máquinas, sensores, PLCs y software de distintos fabricantes intercambian datos de forma segura, mediante un protocolo estandarizado e independiente de la plataforma. Por sí solo, OPC UA no toma decisiones — es el canal que transporta los datos de forma confiable. Pregúntame "OPC vs agentes" para ver cómo se relaciona con los agentes de automatización.';
     if (/agente\s+de\s+automatizaci/.test(t)) return 'Un agente de automatización es software que actúa sobre los datos — toma decisiones, dispara flujos de trabajo, monitorea condiciones y completa tareas por sí solo, muchas veces usando IA. Es distinto de un protocolo como OPC UA: un agente puede obtener datos en vivo mediante OPC UA y luego decidir qué hacer con ellos. Diseñamos y desplegamos estos agentes para tareas operativas reales.';
+    if (/(soporte|mantenimiento|falla|\berror|no funciona|problema)/.test(t)) return 'Ofrecemos soporte técnico y mantenimiento para los sitios web, apps y agentes de IA que construimos — corrección de errores, actualizaciones, monitoreo y ayuda rápida cuando algo falla. Cuéntanos qué pasa en el formulario de arriba o en info@aibuildapp.net y nos ponemos en ello.';
     if (/(agente|chatbot|\bbot\b)/.test(t)) return 'Diseñamos y desplegamos agentes de IA que realizan tareas reales — soporte, ingreso de datos, monitoreo, seguimiento. ¡Este chat es un ejemplo sencillo de uno!';
     if (/(automat|proceso|flujo)/.test(t)) return 'Identificamos los pasos manuales de tu negocio y los automatizamos — desde flujos internos hasta operaciones de cara al cliente.';
     if (/(redise|sitio|app|reconstru)/.test(t)) return 'Creamos sitios web nuevos o reconstruimos el que ya tienes — y podemos integrar un agente de IA como yo, entrenado en tu negocio, para que responda al instante a los visitantes, de día o de noche.';

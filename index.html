@@ -43,6 +43,9 @@
     @keyframes botTilt { 0%, 100% { transform: rotate(-9deg); } 50% { transform: rotate(9deg); } }
     .bot-avatar-btn { animation: botFloat 3s ease-in-out infinite; }
     .bot-avatar-icon { display: block; transform-origin: 50% 68%; animation: botTilt 3.4s ease-in-out infinite; }
+    .services-grid4 { grid-template-columns: repeat(4, minmax(0,1fr)) !important; }
+    @media (max-width: 1180px) { .services-grid4 { grid-template-columns: repeat(2, minmax(0,1fr)) !important; } }
+    @media (max-width: 640px) { .services-grid4 { grid-template-columns: 1fr !important; } }
   </style>
 
 </head>
@@ -146,7 +149,7 @@
       <h2 style="font-size:38px; color:#F5F7FB; font-weight:700; margin-top:14px;">Everything it takes to make your product AI-native</h2>
     </div>
 
-    <div style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:24px; margin-top:56px;">
+    <div class="services-grid4" style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:24px; margin-top:56px;">
 
       <div class="card" style="background:#10152A; border:1px solid rgba(255,255,255,0.07); border-radius:16px; padding:32px;">
         <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -186,6 +189,19 @@
         </svg>
         <h3 style="font-size:19px; color:#F5F7FB; font-weight:700; margin-top:20px;">Custom AI agents</h3>
         <p style="font-size:14.5px; line-height:1.6; color:#AEB8CE; margin-top:10px;">We design and deploy agents that handle real tasks — support, data entry, monitoring, follow-ups — built around how your team actually works.</p>
+      </div>
+
+      <div class="card" style="background:#10152A; border:1px solid rgba(255,255,255,0.07); border-radius:16px; padding:32px;">
+        <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="c5" x1="6" y1="8" x2="42" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#22D3EE"/><stop offset="55%" stop-color="#6366F1"/><stop offset="100%" stop-color="#A855F7"/></linearGradient></defs>
+          <path d="M 11,27 V 23 A 13,13 0 0 1 37,23 V 27" fill="none" stroke="url(#c5)" stroke-width="2.2" stroke-linecap="round"/>
+          <rect x="8" y="25" width="7" height="11" rx="3" fill="none" stroke="url(#c5)" stroke-width="2"/>
+          <rect x="33" y="25" width="7" height="11" rx="3" fill="none" stroke="url(#c5)" stroke-width="2"/>
+          <path d="M 36.5,36 V 37 A 4,4 0 0 1 32.5,41 H 27" fill="none" stroke="url(#c5)" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="25.5" cy="41" r="2" fill="url(#c5)"/>
+        </svg>
+        <h3 style="font-size:19px; color:#F5F7FB; font-weight:700; margin-top:20px;">Technical support</h3>
+        <p style="font-size:14.5px; line-height:1.6; color:#AEB8CE; margin-top:10px;">Ongoing support and maintenance for the websites, apps and AI agents we build — bug fixes, updates, monitoring and quick help whenever something needs attention.</p>
       </div>
 
       
@@ -365,6 +381,7 @@
               <option>AI-powered redesign</option>
               <option>Process automation</option>
               <option>Custom AI agents</option>
+              <option>Technical support</option>
               <option>Something else</option>
             </select>
           </div>
@@ -498,7 +515,7 @@ document.getElementById('bookingFormEn').addEventListener('submit', function (e)
 
 (function () {
   var messages = [
-    { from: 'bot', text: "Hi! I'm Edward, the Aibuildapp assistant. Ask me about AI redesigns, process automation, or custom AI agents — or I can help you book a free consultation." }
+    { from: 'bot', text: "Hi! I'm Edward, the Aibuildapp assistant. Ask me about AI redesigns, process automation, custom AI agents, or technical support — or I can help you book a free consultation." }
   ];
   var panel = document.getElementById('chatPanel');
   var list = document.getElementById('chatMessages');
@@ -535,6 +552,7 @@ document.getElementById('bookingFormEn').addEventListener('submit', function (e)
     if (/\bopc\b/.test(t) && /(agent|vs\.?|versus|differ|difference|compare)/.test(t)) return "Good question — they solve different problems. OPC / OPC UA is a communication standard: it standardizes how data moves between machines, sensors, and software, regardless of vendor. An automation agent is intelligent software that consumes that data — often via OPC UA — and takes action: deciding, orchestrating, and executing tasks. In short: OPC connects your systems, agents decide and act on what those systems report. We build both — the OPC UA integration to get reliable data, and the AI agents that act on it.";
     if (/\bopc\b/.test(t)) return "OPC — and its modern version, OPC UA (Open Platform Communications Unified Architecture) — is an open communication standard for industrial automation. It defines how machines, sensors, PLCs, and software from different vendors exchange data securely, over a standardized, platform-independent protocol. On its own, OPC UA doesn\'t make decisions — it\'s the channel that carries the data reliably. Ask me \"OPC vs agents\" to see how it relates to automation agents.";
     if (/(automation agent|automated agent)/.test(t)) return "An automation agent is software that acts on data — making decisions, triggering workflows, monitoring conditions, and completing tasks on its own, often using AI. It\'s different from a protocol like OPC UA: an agent might pull live data through OPC UA, then decide what to do with it. We design and deploy these agents for real operational tasks.";
+    if (/(support|maintenance|maintain|\bbug|broken|\berror|\bfix|not working|down\b)/.test(t)) return "We offer technical support and maintenance for the websites, apps and AI agents we build — bug fixes, updates, monitoring and quick help when something breaks. Tell us what's going on through the form above or at info@aibuildapp.net and we'll get on it.";
     if (/(agent|chatbot|\bbot\b)/.test(t)) return "We design and deploy custom AI agents that handle real tasks — support, data entry, monitoring, follow-ups. This chat is a simple example of one!";
     if (/(automat|process|workflow)/.test(t)) return "We map the manual steps in your business and automate them — from back-office workflows to customer-facing operations.";
     if (/(redesign|website|app|rebuild)/.test(t)) return "We build new websites or rebuild what you already have — and we can wire in an AI agent like me, trained on your business, so it answers visitor questions instantly, day or night.";
