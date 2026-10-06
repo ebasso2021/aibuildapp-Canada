@@ -299,7 +299,8 @@ h1 .hl, h2 .hl { isolation: isolate; }
 .wa-float:hover { background: #1EBE5A; transform: translateY(-2px); }
 .wa-float:focus-visible { outline: 3px solid var(--ink, #2B2140); outline-offset: 3px; }
 .wa-float .wa-ico { width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,0.18); display: grid; place-items: center; flex: none; }
-.wa-float svg { width: 26px; height: 26px; display: block; }
+.wa-float .wa-ico { overflow: hidden; background: #53D262; }
+.wa-float .wa-ico img { width: 100%; height: 100%; object-fit: cover; display: block; }
 @media (max-width: 600px) {
   .wa-float { left: 14px; padding: 0 8px; width: 58px; justify-content: center; }
   .wa-float .wa-txt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
