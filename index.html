@@ -400,8 +400,9 @@
           </div>
           <div class="form-row">
             <div class="field"><label for="fCo">Company</label><input id="fCo" type="text" name="company" placeholder="Optional" autocomplete="organization"></div>
-            <div class="field"><label for="fNeed">I need help with</label><select id="fNeed" name="need"><option>Website + AI agent</option><option>AI-powered redesign</option><option>Process automation</option><option>Custom AI agents</option><option>Technical support</option><option>Something else</option></select></div>
+            <div class="field"><label for="fNeed">I need help with</label><select id="fNeed" name="need"><option>Website + AI agent</option><option>AI-powered redesign</option><option>Process automation</option><option>Custom AI agents</option><option data-ask-laptop>Technical support</option><option>Something else</option></select></div>
           </div>
+          <div class="field" id="laptopField" hidden><label for="fLaptop">Laptop brand and model</label><input id="fLaptop" type="text" name="laptopModel" placeholder="e.g. Dell Inspiron 15 3520, HP Pavilion 14, MacBook Air M2" autocomplete="off"></div>
           <div class="field"><label for="fDet">Tell us about your project</label><textarea id="fDet" name="details" required rows="4" placeholder="What are you working with, and what would you like to add AI to?"></textarea></div>
           <button type="submit" id="bookingSubmit" class="btn btn-primary">Book a free consultation</button>
           <p class="form-status" id="bookingStatus">Sent straight to our team — no email app needed.</p>

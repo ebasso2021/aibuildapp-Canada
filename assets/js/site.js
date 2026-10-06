@@ -38,6 +38,25 @@
   var form = document.getElementById('bookingForm');
   if (form && SITE.form) {
     var T = SITE.form;
+    /* Ask for the laptop model when "Technical support" is chosen */
+    var laptopField = document.getElementById('laptopField');
+    var laptopInput = document.getElementById('fLaptop');
+    var needsLaptop = function () {
+      var opt = form.need.options[form.need.selectedIndex];
+      return !!(opt && opt.hasAttribute('data-ask-laptop'));
+    };
+    var syncLaptop = function () {
+      if (!laptopField || !laptopInput) { return; }
+      var show = needsLaptop();
+      laptopField.hidden = !show;
+      laptopInput.required = show;
+      if (!show) { laptopInput.value = ''; }
+    };
+    form.need.addEventListener('change', function () {
+      syncLaptop();
+      if (needsLaptop() && laptopInput) { laptopInput.focus(); }
+    });
+    syncLaptop();
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var btn = document.getElementById('bookingSubmit');
@@ -57,6 +76,7 @@
         _template: 'table',
         _captcha: 'false'
       };
+      if (needsLaptop() && laptopInput) { payload.laptopModel = laptopInput.value.trim(); }
       if (form._honey && form._honey.value) { payload._honey = form._honey.value; }
       fetch('https://formsubmit.co/ajax/eleebasso_2003@yahoo.com', {
         method: 'POST',
@@ -68,6 +88,7 @@
           var ok = r.ok && r.data && (r.data.success === 'true' || r.data.success === true);
           if (!ok) { throw new Error('send failed'); }
           form.reset();
+          syncLaptop();
           btn.textContent = T.sent;
           status.textContent = T.thanks;
           status.style.color = 'var(--ok)';

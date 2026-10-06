@@ -387,8 +387,9 @@
           </div>
           <div class="form-row">
             <div class="field"><label for="fCo">Empresa</label><input id="fCo" type="text" name="company" placeholder="Opcional" autocomplete="organization"></div>
-            <div class="field"><label for="fNeed">Necesito ayuda con</label><select id="fNeed" name="need"><option>Sitio web + agente de IA</option><option>Rediseño con IA</option><option>Automatización de procesos</option><option>Agentes de IA personalizados</option><option>Soporte técnico</option><option>Otra cosa</option></select></div>
+            <div class="field"><label for="fNeed">Necesito ayuda con</label><select id="fNeed" name="need"><option>Sitio web + agente de IA</option><option>Rediseño con IA</option><option>Automatización de procesos</option><option>Agentes de IA personalizados</option><option data-ask-laptop>Soporte técnico</option><option>Otra cosa</option></select></div>
           </div>
+          <div class="field" id="laptopField" hidden><label for="fLaptop">Marca y modelo de la laptop</label><input id="fLaptop" type="text" name="laptopModel" placeholder="ej. Dell Inspiron 15 3520, HP Pavilion 14, MacBook Air M2" autocomplete="off"></div>
           <div class="field"><label for="fDet">Cuéntanos sobre tu proyecto</label><textarea id="fDet" name="details" required rows="4" placeholder="¿Con qué estás trabajando y qué te gustaría mejorar con IA?"></textarea></div>
           <button type="submit" id="bookingSubmit" class="btn btn-primary">Reserva una consulta gratuita</button>
           <p class="form-status" id="bookingStatus">Se envía directo a nuestro equipo — no necesitas abrir tu correo.</p>
