@@ -277,3 +277,19 @@ h1 .hl, h2 .hl { isolation: isolate; }
   .brand { font-size: 19px; }
   .art { padding: 10px; border-radius: 24px; }
 }
+
+/* Technical support: identify your device */
+.device-id { margin-top: 64px; }
+.device-head { max-width: 760px; }
+.device-head h3 { font-size: clamp(24px, 3vw, 32px); margin-top: 8px; }
+.device-head .body a { color: var(--coral-ink); font-weight: 700; text-decoration: underline; }
+.device-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 22px; margin-top: 28px; }
+.device-grid .card:hover { transform: none; }
+.device-grid .tag { font: 800 13px var(--display); letter-spacing: 0.06em; text-transform: uppercase; color: var(--coral-ink); }
+.device-grid h4 { font-size: 20px; margin-top: 10px; }
+.device-grid p { font-size: 15.5px; color: var(--ink-2); margin: 10px 0 0; }
+.device-grid .note { font-size: 14px; color: var(--muted); text-align: left; font-weight: 400; }
+.device-grid code { font-family: Consolas, 'Cascadia Mono', Menlo, monospace; font-size: 0.92em; }
+.device-grid code.cmd { display: block; margin-top: 10px; padding: 10px 12px; border-radius: 12px; background: var(--plum); color: var(--on-dark); font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
+.device-grid kbd { font-family: var(--body); font-size: 13px; font-weight: 700; padding: 1px 7px; border-radius: 6px; background: var(--sand); border: 1px solid var(--line); color: var(--ink); }
+@media (max-width: 960px) { .device-grid { grid-template-columns: 1fr; } }
