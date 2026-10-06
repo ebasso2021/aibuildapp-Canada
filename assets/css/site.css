@@ -293,3 +293,15 @@ h1 .hl, h2 .hl { isolation: isolate; }
 .device-grid code.cmd { display: block; margin-top: 10px; padding: 10px 12px; border-radius: 12px; background: var(--plum); color: var(--on-dark); font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
 .device-grid kbd { font-family: var(--body); font-size: 13px; font-weight: 700; padding: 1px 7px; border-radius: 6px; background: var(--sand); border: 1px solid var(--line); color: var(--ink); }
 @media (max-width: 960px) { .device-grid { grid-template-columns: 1fr; } }
+
+/* WhatsApp floating button (bottom-left) */
+.wa-float { position: fixed; left: 22px; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); z-index: 59; display: inline-flex; align-items: center; gap: 10px; height: 58px; padding: 0 22px 0 8px; border-radius: 999px; background: #25D366; color: #fff; font: 700 16px/1 var(--body); text-decoration: none; box-shadow: 0 10px 28px rgba(37,211,102,0.35), 0 4px 10px rgba(43,33,64,0.12); transition: transform .15s ease, background .15s ease; }
+.wa-float:hover { background: #1EBE5A; transform: translateY(-2px); }
+.wa-float:focus-visible { outline: 3px solid var(--ink, #2B2140); outline-offset: 3px; }
+.wa-float .wa-ico { width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,0.18); display: grid; place-items: center; flex: none; }
+.wa-float svg { width: 26px; height: 26px; display: block; }
+@media (max-width: 600px) {
+  .wa-float { left: 14px; padding: 0 8px; width: 58px; justify-content: center; }
+  .wa-float .wa-txt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
+@media print { .wa-float { display: none; } }
