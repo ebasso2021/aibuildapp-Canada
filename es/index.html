@@ -49,6 +49,7 @@
         <a href="#how-it-works">Cómo funciona</a>
         <a href="agents.html">Agentes</a>
         <a href="#contact">Contacto</a>
+        <a href="#contact" data-book>Reservar cita</a>
       </div>
       <div class="nav-actions">
         <div class="lang" aria-label="Language"><a href="../index.html" lang="en">EN</a><span>ES</span></div>
@@ -388,6 +389,15 @@
             <div class="field"><label for="fNeed">Necesito ayuda con</label><select id="fNeed" name="need"><option>Sitio web + agente de IA</option><option>Rediseño con IA</option><option>Automatización de procesos</option><option>Agentes de IA personalizados</option><option data-ask-laptop>Soporte técnico</option><option>Otra cosa</option></select></div>
           </div>
           <div class="field" id="laptopField" hidden><label for="fLaptop">Marca y modelo de la laptop</label><input id="fLaptop" type="text" name="laptopModel" placeholder="ej. Dell Inspiron 15 3520, HP Pavilion 14, MacBook Air M2" autocomplete="off"></div>
+          <fieldset class="appt" id="apptBox">
+            <label class="appt-toggle" for="fAppt"><input type="checkbox" id="fAppt" name="wantsAppointment"><span>Reservar una cita — elige fecha y hora</span></label>
+            <div class="appt-picker" id="apptPicker" hidden>
+              <div class="cal" id="apptCal"></div>
+              <div class="slots" id="apptSlots" aria-live="polite"></div>
+              <p class="appt-hours">Lun–Vie, 9:00 – 17:00 (hora de Edmonton). Te confirmaremos la cita por correo.</p>
+              <p class="appt-summary" id="apptSummary" aria-live="polite"></p>
+            </div>
+          </fieldset>
           <div class="field"><label for="fDet">Cuéntanos sobre tu proyecto</label><textarea id="fDet" name="details" required rows="4" placeholder="¿Con qué estás trabajando y qué te gustaría mejorar con IA?"></textarea></div>
           <button type="submit" id="bookingSubmit" class="btn btn-primary">Reserva una consulta gratuita</button>
           <p class="form-status" id="bookingStatus">Se envía directo a nuestro equipo — no necesitas abrir tu correo.</p>
@@ -488,6 +498,7 @@
   </div>
 </div>
 <script>
+window.SITE_APPT = {"locale": "es-ES", "at": " a las ", "tzLabel": "hora de Edmonton", "prev": "Mes anterior", "next": "Mes siguiente", "weekdays": ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá"], "times": "Horarios disponibles", "pickDate": "Elige una fecha para ver los horarios disponibles.", "noSlots": "Ya no quedan horarios este día — elige otra fecha.", "chosen": "Cita solicitada:", "missing": "Por favor elige una fecha y una hora para tu cita.", "submit": "Solicitar esta cita", "subject": "Nueva solicitud de cita — aibuildapp.net", "hours": "Lun–Vie, 9:00 – 17:00 (hora de Edmonton). Te confirmaremos la cita por correo.", "tz": "America/Edmonton", "days": [1, 2, 3, 4, 5], "start": 9, "end": 17, "step": 30, "leadMins": 60, "maxDays": 60};
 window.SITE = {"lang": "es", "form": {"sending": "Enviando…", "sendingStatus": "Enviando directamente a nuestro equipo…", "sent": "Mensaje enviado", "thanks": "¡Gracias! Te contactaremos pronto.", "error": "Algo salió mal — escríbenos directamente a", "subject": "Nueva solicitud de consulta — aibuildapp.net"}};
 (function () {
   function reply(text) {
@@ -500,7 +511,7 @@ window.SITE = {"lang": "es", "form": {"sending": "Enviando…", "sendingStatus":
     if (/(automat|proceso|flujo)/.test(t)) return 'Identificamos los pasos manuales de tu negocio y los automatizamos — desde flujos internos hasta operaciones de cara al cliente.';
     if (/(redise|sitio|app|reconstru)/.test(t)) return 'Creamos sitios web nuevos o reconstruimos el que ya tienes — y podemos integrar un agente de IA como yo, entrenado en tu negocio, para que responda al instante a los visitantes, de día o de noche.';
     if (/(precio|costo|presupuesto|cuánto|cuanto)/.test(t)) return 'El precio depende del alcance, así que el mejor siguiente paso es una consulta gratuita — revisamos qué tienes y qué necesitas.';
-    if (/(reserva|consulta|contacto|correo|hablar|llamar)/.test(t)) return 'Puedes completar el formulario justo arriba de este chat, o escribir directamente a info@aibuildapp.net.';
+    if (/(cita|reserv|agendar|reserva|consulta|contacto|correo|hablar|llamar)/.test(t)) return 'Puedes reservar una cita en el formulario justo arriba de este chat: marca “Reservar una cita” y elige fecha y hora en el calendario. O escribe directamente a info@aibuildapp.net.';
     if (/(gracias)/.test(t)) return '¡De nada! ¿Hay algo más en lo que pueda ayudarte?';
     if (/\b(hola|buenas)\b/.test(t)) return '¡Hola! ¿Qué te gustaría saber — rediseños, automatización o agentes?';
     return 'Soy Edward, un asistente simple integrado en esta página, así que puede que no capte todo. Para algo específico, el formulario de consulta gratuita más arriba o info@aibuildapp.net te pondrá en contacto directo con el equipo.';

@@ -62,6 +62,7 @@
         <a href="#how-it-works">How it works</a>
         <a href="agents.html">Agents</a>
         <a href="#contact">Contact</a>
+        <a href="#contact" data-book>Book an appointment</a>
       </div>
       <div class="nav-actions">
         <div class="lang" aria-label="Language"><span>EN</span><a href="es/index.html" lang="es">ES</a></div>
@@ -401,6 +402,15 @@
             <div class="field"><label for="fNeed">I need help with</label><select id="fNeed" name="need"><option>Website + AI agent</option><option>AI-powered redesign</option><option>Process automation</option><option>Custom AI agents</option><option data-ask-laptop>Technical support</option><option>Something else</option></select></div>
           </div>
           <div class="field" id="laptopField" hidden><label for="fLaptop">Laptop brand and model</label><input id="fLaptop" type="text" name="laptopModel" placeholder="e.g. Dell Inspiron 15 3520, HP Pavilion 14, MacBook Air M2" autocomplete="off"></div>
+          <fieldset class="appt" id="apptBox">
+            <label class="appt-toggle" for="fAppt"><input type="checkbox" id="fAppt" name="wantsAppointment"><span>Book an appointment — pick a date and time</span></label>
+            <div class="appt-picker" id="apptPicker" hidden>
+              <div class="cal" id="apptCal"></div>
+              <div class="slots" id="apptSlots" aria-live="polite"></div>
+              <p class="appt-hours">Mon–Fri, 9:00 AM – 5:00 PM (Edmonton time). We will confirm your appointment by email.</p>
+              <p class="appt-summary" id="apptSummary" aria-live="polite"></p>
+            </div>
+          </fieldset>
           <div class="field"><label for="fDet">Tell us about your project</label><textarea id="fDet" name="details" required rows="4" placeholder="What are you working with, and what would you like to add AI to?"></textarea></div>
           <button type="submit" id="bookingSubmit" class="btn btn-primary">Book a free consultation</button>
           <p class="form-status" id="bookingStatus">Sent straight to our team — no email app needed.</p>
@@ -501,6 +511,7 @@
   </div>
 </div>
 <script>
+window.SITE_APPT = {"locale": "en-US", "at": " at ", "tzLabel": "Edmonton time", "prev": "Previous month", "next": "Next month", "weekdays": ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"], "times": "Available times", "pickDate": "Choose a date to see available times.", "noSlots": "No times left on this day — please choose another date.", "chosen": "Requested appointment:", "missing": "Please choose a date and a time for your appointment.", "submit": "Request this appointment", "subject": "New appointment request — aibuildapp.net", "hours": "Mon–Fri, 9:00 AM – 5:00 PM (Edmonton time). We will confirm your appointment by email.", "tz": "America/Edmonton", "days": [1, 2, 3, 4, 5], "start": 9, "end": 17, "step": 30, "leadMins": 60, "maxDays": 60};
 window.SITE = {"lang": "en", "form": {"sending": "Sending…", "sendingStatus": "Sending straight to our team…", "sent": "Message sent", "thanks": "Thanks! We'll get back to you shortly.", "error": "Something went wrong — email us directly at", "subject": "New consultation request — aibuildapp.net"}};
 (function () {
   function reply(text) {
@@ -513,7 +524,7 @@ window.SITE = {"lang": "en", "form": {"sending": "Sending…", "sendingStatus": 
     if (/(automat|process|workflow)/.test(t)) return "We map the manual steps in your business and automate them — from back-office workflows to customer-facing operations.";
     if (/(redesign|website|app|rebuild)/.test(t)) return "We build new websites or rebuild what you already have — and we can wire in an AI agent like me, trained on your business, so it answers visitor questions instantly, day or night.";
     if (/(price|cost|budget|how much)/.test(t)) return "Pricing depends on scope, so the best next step is a free consultation — we'll look at what you have and what you need.";
-    if (/(book|consult|contact|email|talk|call)/.test(t)) return "You can fill out the form just above this chat, or email info@aibuildapp.net directly.";
+    if (/(book|appointment|schedul|consult|contact|email|talk|call)/.test(t)) return "You can book an appointment in the form just above this chat: tick \u201cBook an appointment\u201d, then pick a date and time on the calendar. Or email info@aibuildapp.net directly.";
     if (/(thank)/.test(t)) return "You're welcome! Anything else I can help with?";
     if (/\b(hi|hello|hey)\b/.test(t)) return "Hi there! What would you like to know — redesigns, automation, or agents?";
     return "I'm Edward, a simple assistant built into this page, so I might not catch everything. For anything specific, the free consultation form above or info@aibuildapp.net will reach the team directly.";
