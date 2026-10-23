@@ -435,3 +435,7 @@ h1 .hl, h2 .hl { isolation: isolate; }
   .nav-links a { font-size: 14px; }
   .nav-menu { gap: 12px; }
 }
+
+/* What we do: three cards (Technical support, Remote technical support, Custom AI agents) */
+.services-grid.three { grid-template-columns: repeat(3, minmax(0,1fr)); }
+@media (max-width: 960px) { .services-grid.three { grid-template-columns: 1fr; max-width: 560px; margin-left: auto; margin-right: auto; } }
