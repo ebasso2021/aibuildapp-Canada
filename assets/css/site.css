@@ -386,3 +386,15 @@ h1 .hl, h2 .hl { isolation: isolate; }
 @keyframes flow2 { to { stroke-dashoffset: -22; } }
 .illus .wave { transform-box: view-box; transform-origin: 188px 200px; animation: wave 1.8s ease-in-out infinite; }
 @keyframes wave { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(10deg); } 75% { transform: rotate(-6deg); } }
+
+/* Remote IT support — monthly retainer */
+.remote-it { margin-top: 64px; }
+.remote-grid { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 22px; margin-top: 28px; }
+.remote-grid .card:hover { transform: none; }
+.remote-grid .tag { font: 800 13px var(--display); letter-spacing: 0.06em; text-transform: uppercase; color: var(--coral-ink); }
+.remote-grid h4 { font-size: 20px; margin-top: 10px; }
+.remote-grid p { font-size: 15.5px; color: var(--ink-2); margin: 10px 0 0; }
+.remote-it .links-col { margin-top: 22px; }
+@media (max-width: 1100px) { .remote-grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+@media (max-width: 760px) { .remote-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 520px) { .remote-grid { grid-template-columns: 1fr; } }
