@@ -1,0 +1,6 @@
+{
+  "name": "aibuildapp-booking",
+  "private": true,
+  "description": "Appointment booking endpoint for aibuildapp.net: emails an .ics calendar invite via Resend.",
+  "engines": { "node": ">=20" }
+}

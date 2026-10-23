@@ -144,6 +144,12 @@
     return {
       active: function () { return box.checked; },
       value: label,
+      start: function () {
+        if (!sel.date || sel.time == null) { return ''; }
+        var z = function (n) { return (n < 10 ? '0' : '') + n; };
+        return sel.date.getFullYear() + '-' + z(sel.date.getMonth() + 1) + '-' + z(sel.date.getDate()) + 'T' + z(Math.floor(sel.time / 60)) + ':' + z(sel.time % 60);
+      },
+      refresh: function () { init(); },
       focus: function () { var b = cal.querySelector('.cal-day:not(:disabled)'); if (b) { b.focus(); } },
       reset: function () { box.checked = false; sync(); }
     };
@@ -200,28 +206,65 @@
       if (needsLaptop() && laptopInput) { payload.laptopModel = laptopInput.value.trim(); }
       if (appt && appt.active()) { payload.appointment = appt.value(); payload._subject = window.SITE_APPT.subject; }
       if (form._honey && form._honey.value) { payload._honey = form._honey.value; }
-      fetch('https://formsubmit.co/ajax/eleebasso_2003@yahoo.com', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(payload)
-      })
-        .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
-        .then(function (r) {
-          var ok = r.ok && r.data && (r.data.success === 'true' || r.data.success === true);
-          if (!ok) { throw new Error('send failed'); }
-          form.reset();
-          syncLaptop();
-          if (appt) { appt.reset(); }
-          btn.textContent = T.sent;
-          status.textContent = T.thanks;
-          status.style.color = 'var(--ok)';
+      var A = window.SITE_APPT || {};
+      var finish = function (msg) {
+        form.reset();
+        syncLaptop();
+        if (appt) { appt.reset(); }
+        btn.disabled = true;
+        btn.textContent = T.sent;
+        status.textContent = msg;
+        status.style.color = 'var(--ok)';
+      };
+      var fail = function () {
+        btn.disabled = false;
+        btn.textContent = original;
+        status.innerHTML = T.error + ' <a href="mailto:eleebasso_2003@yahoo.com">eleebasso_2003@yahoo.com</a>.';
+        status.style.color = 'var(--err)';
+      };
+      var viaFormSubmit = function () {
+        return fetch('https://formsubmit.co/ajax/eleebasso_2003@yahoo.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload)
         })
-        .catch(function () {
-          btn.disabled = false;
-          btn.textContent = original;
-          status.innerHTML = T.error + ' <a href="mailto:eleebasso_2003@yahoo.com">eleebasso_2003@yahoo.com</a>.';
-          status.style.color = 'var(--err)';
-        });
+          .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+          .then(function (r) {
+            var ok = r.ok && r.data && (r.data.success === 'true' || r.data.success === true);
+            if (!ok) { throw new Error('send failed'); }
+            finish(T.thanks);
+          });
+      };
+      /* Appointment + booking API configured: the API emails an .ics calendar invite to the visitor and the team.
+         If the API is unreachable, fall back to FormSubmit so the request still reaches the team. */
+      if (appt && appt.active() && A.api) {
+        fetch(A.api, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fullName: payload.fullName, email: payload.email, company: payload.company, need: payload.need,
+            details: payload.details, laptopModel: payload.laptopModel || '', lang: SITE.lang || 'en',
+            start: appt.start(), _honey: payload._honey || ''
+          })
+        })
+          .then(function (res) { return res.json().then(function (d) { return { status: res.status, d: d }; }, function () { return { status: res.status, d: null }; }); })
+          .then(function (r) {
+            if (r.d && r.d.ok) { finish(r.d.visitorSent === false ? T.thanks : A.emailed.replace('{email}', payload.email)); return; }
+            if (r.status === 400 && r.d && /^(closed_|too_)/.test(r.d.error || '')) {
+              btn.disabled = false;
+              btn.textContent = original;
+              status.textContent = A.slotError;
+              status.style.color = 'var(--err)';
+              appt.refresh();
+              appt.focus();
+              return;
+            }
+            throw new Error('api ' + r.status);
+          })
+          .catch(function () { return viaFormSubmit().catch(fail); });
+      } else {
+        viaFormSubmit().catch(fail);
+      }
     });
   }
 
