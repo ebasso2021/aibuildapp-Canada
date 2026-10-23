@@ -1,6 +1,9 @@
 {
   "name": "aibuildapp-booking",
   "private": true,
-  "description": "Appointment booking endpoint for aibuildapp.net: emails an .ics calendar invite via Resend.",
-  "engines": { "node": ">=20" }
+  "description": "Appointment booking endpoint for aibuildapp.net: stores bookings in Vercel Blob and emails an .ics calendar invite via Resend.",
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "@vercel/blob": "2.8.1"
+  }
 }

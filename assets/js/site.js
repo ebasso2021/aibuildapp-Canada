@@ -57,6 +57,22 @@
       return { y: p.year, m: p.month - 1, d: p.day, mins: (p.hour % 24) * 60 + p.minute };
     };
     var now, today, lastDay, view, sel = { date: null, time: null };
+    var taken = {}; /* "YYYY-MM-DDTHH:MM" already booked (from the booking database) */
+    var z2 = function (n) { return (n < 10 ? '0' : '') + n; };
+    var slotKey = function (d, t) { return d.getFullYear() + '-' + z2(d.getMonth() + 1) + '-' + z2(d.getDate()) + 'T' + z2(Math.floor(t / 60)) + ':' + z2(t % 60); };
+    var loadTaken = function () {
+      if (!A.slotsApi || !window.fetch) { return; }
+      fetch(A.slotsApi, { cache: 'no-store' })
+        .then(function (res) { return res.json(); })
+        .then(function (d) {
+          if (!d || !d.taken) { return; }
+          taken = {};
+          d.taken.forEach(function (k) { taken[k] = true; });
+          if (sel.date && sel.time != null && taken[slotKey(sel.date, sel.time)]) { sel.time = null; }
+          if (!picker.hidden) { renderCal(); renderSlots(); renderSummary(); }
+        })
+        .catch(function () {});
+    };
     var sameDay = function (a, b) { return a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate(); };
     var fmtTime = function (mins) { return new Date(2000, 0, 1, Math.floor(mins / 60), mins % 60).toLocaleTimeString(A.locale, { hour: 'numeric', minute: '2-digit' }); };
     var fmtDate = function (d) { return d.toLocaleDateString(A.locale, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }); };
@@ -65,6 +81,7 @@
       var out = [];
       for (var t = A.start * 60; t + A.step <= A.end * 60; t += A.step) {
         if (sameDay(d, today) && t < now.mins + A.leadMins) { continue; }
+        if (taken[slotKey(d, t)]) { continue; }
         out.push(t);
       }
       return out;
@@ -131,6 +148,7 @@
       }
       sel = { date: null, time: null };
       renderCal(); renderSlots(); renderSummary();
+      loadTaken();
     };
     var sync = function () {
       picker.hidden = !box.checked;
@@ -146,8 +164,7 @@
       value: label,
       start: function () {
         if (!sel.date || sel.time == null) { return ''; }
-        var z = function (n) { return (n < 10 ? '0' : '') + n; };
-        return sel.date.getFullYear() + '-' + z(sel.date.getMonth() + 1) + '-' + z(sel.date.getDate()) + 'T' + z(Math.floor(sel.time / 60)) + ':' + z(sel.time % 60);
+        return slotKey(sel.date, sel.time);
       },
       refresh: function () { init(); },
       focus: function () { var b = cal.querySelector('.cal-day:not(:disabled)'); if (b) { b.focus(); } },
@@ -250,7 +267,7 @@
           .then(function (res) { return res.json().then(function (d) { return { status: res.status, d: d }; }, function () { return { status: res.status, d: null }; }); })
           .then(function (r) {
             if (r.d && r.d.ok) { finish(r.d.visitorSent === false ? T.thanks : A.emailed.replace('{email}', payload.email)); return; }
-            if (r.status === 400 && r.d && /^(closed_|too_)/.test(r.d.error || '')) {
+            if ((r.status === 400 || r.status === 409) && r.d && /^(closed_|too_|slot_taken)/.test(r.d.error || '')) {
               btn.disabled = false;
               btn.textContent = original;
               status.textContent = A.slotError;

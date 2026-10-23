@@ -3,15 +3,20 @@
  *
  * POST /api/book  (JSON, called from the contact form on aibuildapp.net)
  * 1. Re-checks the slot against the same rules as the calendar on the site.
- * 2. Builds an .ics calendar invite (iCalendar, RFC 5545).
- * 3. Emails the invite through Resend to the visitor AND to the team.
+ * 2. Reserves the slot in the bookings database (Vercel Blob, see lib/db.js),
+ *    so the same time can't be booked twice.
+ * 3. Builds an .ics calendar invite (iCalendar, RFC 5545).
+ * 4. Emails the invite through Resend to the visitor AND to the team.
  *
  * Environment variables (set in the Vercel project, never in this file):
  *   RESEND_API_KEY   API key from resend.com                      (required)
  *   OWNER_EMAIL      inbox that receives new bookings             (required)
  *   FROM_EMAIL       verified sender, e.g. "Aibuildapp <info@aibuildapp.net>" (required)
  *   ALLOWED_ORIGINS  comma list; default https://aibuildapp.net,https://www.aibuildapp.net
+ *   BLOB_READ_WRITE_TOKEN  added automatically when the Blob store is connected
  */
+const cors = require('../lib/cors');
+const db = require('../lib/db');
 
 const TZ = 'America/Edmonton';
 const RULES = { days: [1, 2, 3, 4, 5], start: 9, end: 17, step: 30, leadMins: 60, maxDays: 60, duration: 30 };
@@ -131,18 +136,10 @@ function emailAddr(from) { const m = /<([^>]+)>/.exec(from); return (m ? m[1] : 
 
 /* ---------- handler ---------- */
 module.exports = async function handler(req, res) {
-  const allowed = (process.env.ALLOWED_ORIGINS || 'https://aibuildapp.net,https://www.aibuildapp.net').split(',').map((s) => s.trim()).filter(Boolean);
-  const origin = req.headers.origin || '';
-  if (allowed.indexOf(origin) >= 0) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-    res.setHeader('Vary', 'Origin');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    res.setHeader('Access-Control-Max-Age', '86400');
-  }
+  const c = cors(req, res, 'POST');
   if (req.method === 'OPTIONS') return res.status(204).end();
   if (req.method !== 'POST') return res.status(405).json({ ok: false, error: 'method' });
-  if (origin && allowed.indexOf(origin) < 0) return res.status(403).json({ ok: false, error: 'origin' });
+  if (c.origin && !c.ok) return res.status(403).json({ ok: false, error: 'origin' });
   if (!process.env.RESEND_API_KEY || !process.env.OWNER_EMAIL || !process.env.FROM_EMAIL) return res.status(500).json({ ok: false, error: 'not_configured' });
 
   let b = req.body;
@@ -166,7 +163,19 @@ module.exports = async function handler(req, res) {
     + L.at + new Date(Date.UTC(2000, 0, 1, slot.h, slot.mi)).toLocaleTimeString(L.locale, { hour: 'numeric', minute: '2-digit', timeZone: 'UTC' })
     + ' (' + L.tzLabel + ')';
   const fromAddr = emailAddr(process.env.FROM_EMAIL);
-  const uid = slot.startUtc + '-' + Math.random().toString(36).slice(2, 10) + '@aibuildapp.net';
+  const id = slot.startUtc.toString(36) + '-' + Math.random().toString(36).slice(2, 10);
+  const uid = id + '@aibuildapp.net';
+
+  // Reserve the slot first. If the database is down we still take the booking
+  // (better than losing a customer) and warn the team in the email.
+  let saved = false;
+  try {
+    await db.reserve({ id, start: b.start, startUtc: slot.startUtc, status: 'booked', name, email, company, need, laptop, details, lang, createdAt: new Date().toISOString() });
+    saved = true;
+  } catch (e) {
+    if (e instanceof db.SlotTakenError) return res.status(409).json({ ok: false, error: 'slot_taken' });
+    console.error('db reserve failed', e.message);
+  }
   const descr = [need && (L.topic + ': ' + need), laptop && ('Laptop: ' + laptop), details].filter(Boolean).join('\n');
   const ics = buildIcs({
     uid, startUtc: slot.startUtc, endUtc: slot.endUtc,
@@ -181,7 +190,7 @@ module.exports = async function handler(req, res) {
     + `<p style="font-size:17px;font-weight:bold;color:#1F8A70">${esc(when)}</p>`
     + (need ? `<p>${esc(L.topic)}: ${esc(need)}</p>` : '')
     + `<p>${esc(L.attach)}</p><p>${esc(L.change)}</p><p>${esc(L.sign)}<br>aibuildapp.net</p></div>`;
-  const rows = [['Name', name], ['Email', email], ['Company', company], ['Need', need], ['Laptop', laptop], ['Appointment', when], ['Language', lang], ['Details', details]]
+  const rows = [['Name', name], ['Email', email], ['Company', company], ['Need', need], ['Laptop', laptop], ['Appointment', when], ['Language', lang], ['Details', details], ['Booking ID', id], ['Saved in database', saved ? 'yes' : 'NO — database unavailable, check for double bookings']]
     .filter((r) => r[1]).map((r) => `<tr><td style="padding:6px 10px;border:1px solid #ddd;font-weight:bold">${r[0]}</td><td style="padding:6px 10px;border:1px solid #ddd;white-space:pre-wrap">${esc(r[1])}</td></tr>`).join('');
   const ownerHtml = `<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px"><p>New appointment booked on aibuildapp.net:</p><table style="border-collapse:collapse">${rows}</table><p>The calendar invite is attached (invite.ics).</p></div>`;
 
@@ -190,6 +199,7 @@ module.exports = async function handler(req, res) {
     await sendEmail({ from: process.env.FROM_EMAIL, to: [process.env.OWNER_EMAIL], reply_to: email, subject: 'New appointment — ' + name + ' — ' + when, html: ownerHtml, attachments: [attachment] });
   } catch (e) {
     console.error('owner email failed', e.message);
+    if (saved) { try { await db.release(id); } catch (e2) { console.error('db release failed', e2.message); } }
     return res.status(502).json({ ok: false, error: 'email_failed' });
   }
   let visitorSent = true;
@@ -199,7 +209,7 @@ module.exports = async function handler(req, res) {
     visitorSent = false;
     console.error('visitor email failed', e.message);
   }
-  return res.status(200).json({ ok: true, visitorSent, when });
+  return res.status(200).json({ ok: true, visitorSent, saved, when });
 };
 
 module.exports._test = { checkSlot, buildIcs, zonedToUtc };
