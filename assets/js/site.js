@@ -236,11 +236,11 @@
       var fail = function () {
         btn.disabled = false;
         btn.textContent = original;
-        status.innerHTML = T.error + ' <a href="mailto:eleebasso_2003@yahoo.com">eleebasso_2003@yahoo.com</a>.';
+        status.innerHTML = T.error + ' <a href="mailto:info@aibuildapp.net">info@aibuildapp.net</a>.';
         status.style.color = 'var(--err)';
       };
       var viaFormSubmit = function () {
-        return fetch('https://formsubmit.co/ajax/eleebasso_2003@yahoo.com', {
+        return fetch('https://formsubmit.co/ajax/info@aibuildapp.net', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(payload)
