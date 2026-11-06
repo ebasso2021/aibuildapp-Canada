@@ -367,6 +367,8 @@ h1 .hl, h2 .hl { isolation: isolate; }
 .illus .steam { animation: steam 3s ease-in-out infinite; }
 @keyframes steam { 0% { opacity: 0; transform: translateY(6px); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(-10px); } }
 .illus .beat { transform-box: fill-box; transform-origin: center; animation: beat 1.6s ease-in-out infinite; }
+.illus .shake { transform-box: view-box; transform-origin: 275px 312px; animation: shake 1.8s ease-in-out infinite; }
+@keyframes shake { 0%, 60%, 100% { transform: translateY(0); } 15% { transform: translateY(-5px); } 30% { transform: translateY(4px); } 45% { transform: translateY(-2px); } }
 @keyframes beat { 0%, 30%, 100% { transform: scale(1); } 15% { transform: scale(1.18); } 45% { transform: scale(1.1); } 60% { transform: scale(1); } }
 .illus .wifi { animation: wifi 2s ease-in-out infinite; }
 .illus .wifi.w2 { animation-delay: .3s; }
