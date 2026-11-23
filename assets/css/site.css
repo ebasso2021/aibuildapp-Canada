@@ -441,3 +441,6 @@ h1 .hl, h2 .hl { isolation: isolate; }
 /* What we do: three cards (Technical support, Remote technical support, Custom AI agents) */
 .services-grid.three { grid-template-columns: repeat(3, minmax(0,1fr)); }
 @media (max-width: 960px) { .services-grid.three { grid-template-columns: 1fr; max-width: 560px; margin-left: auto; margin-right: auto; } }
+
+/* hero slogan tag */
+.slogan-tag{display:inline-block;margin:0 0 14px;padding:6px 14px;border-radius:999px;background:#1F8A70;color:#fff;font-weight:700;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
