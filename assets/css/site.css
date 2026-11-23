@@ -456,13 +456,9 @@ h1 .hl, h2 .hl { isolation: isolate; }
 /* Stripe block hidden until the real Payment Link is added (remove class "stripe-pending" + hidden attr) */
 .stripe-pending { display: none !important; }
 
-/* Intranet link in main nav: lock icon on desktop, icon + text in the mobile menu */
+/* Intranet link in main nav: lock icon + "Intranet" */
 .nav-links a.nav-intranet { display: inline-flex; align-items: center; gap: 6px; }
 .nav-links a.nav-intranet .nav-lock { flex: none; }
-@media (min-width: 1101px) {
-  .nav-links a.nav-intranet .nav-txt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .nav-links a.nav-intranet .nav-lock { width: 18px; height: 18px; }
-}
 @media (min-width: 1101px) and (max-width: 1240px) {
   .nav-menu { gap: 12px; }
   .nav-links { gap: 12px; }
