@@ -455,3 +455,22 @@ h1 .hl, h2 .hl { isolation: isolate; }
 @media (max-width: 700px) { .pay-online { flex-direction: column; align-items: flex-start; } .pay-online .btn { width: 100%; justify-content: center; } }
 /* Stripe block hidden until the real Payment Link is added (remove class "stripe-pending" + hidden attr) */
 .stripe-pending { display: none !important; }
+
+/* Intranet link in main nav: lock icon on desktop, icon + text in the mobile menu */
+.nav-links a.nav-intranet { display: inline-flex; align-items: center; gap: 6px; }
+.nav-links a.nav-intranet .nav-lock { flex: none; }
+@media (min-width: 1101px) {
+  .nav-links a.nav-intranet .nav-txt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .nav-links a.nav-intranet .nav-lock { width: 18px; height: 18px; }
+}
+@media (min-width: 1101px) and (max-width: 1240px) {
+  .nav-menu { gap: 12px; }
+  .nav-links { gap: 12px; }
+  .nav-links a { font-size: 14px; }
+  .nav-actions { gap: 8px; }
+  .nav-actions .btn-sm { padding: 10px 12px; font-size: 13px; }
+}
+@media (min-width: 1241px) {
+  .nav-menu { gap: 14px; }
+  .nav-links { gap: 15px; }
+}
