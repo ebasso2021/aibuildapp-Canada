@@ -470,3 +470,38 @@ h1 .hl, h2 .hl { isolation: isolate; }
   .nav-menu { gap: 14px; }
   .nav-links { gap: 15px; }
 }
+
+
+/* ===== People photos (replace hero / support / contact illustrations + Edward avatar) ===== */
+.ph { display: block; width: 100%; height: auto; object-fit: cover; }
+.ph-hero, .ph-wrap { position: relative; }
+.ph-hero .ph { aspect-ratio: 1100 / 860; }
+.ph-contact { aspect-ratio: 520 / 460; }
+.ph-frame { position: relative; overflow: hidden; border-radius: 28px; box-shadow: 0 18px 40px rgba(43,33,64,0.18); transform: translateZ(0); }
+.art .ph-frame { border-radius: 22px; box-shadow: none; }
+.ph-frame .ph { will-change: transform; }
+.ph-frame::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.22) 50%, transparent 65%); background-size: 250% 100%; animation: phShine 7s ease-in-out infinite; }
+.ph-bub { position: absolute; background: #fff; color: #2b2140; font-weight: 700; font-size: 15px; line-height: 1.3; padding: 10px 16px; border-radius: 18px; box-shadow: 0 10px 26px rgba(43,33,64,0.2); animation: phFloat 4s ease-in-out infinite; z-index: 1; }
+.ph-cust { top: 6%; left: -10px; border-bottom-left-radius: 4px; background: #FFE9DC; }
+.ph-ed { right: -10px; bottom: 7%; display: flex; gap: 10px; align-items: center; font-weight: 500; animation-delay: -2s; }
+.ph-ed img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; flex: none; }
+.ph-fixed { right: 16px; top: 16px; background: #2BB673; color: #fff; animation: phPop 2.6s ease-in-out infinite; }
+.ph-hi { left: 12px; top: 12px; background: #FFE9DC; transform-origin: 20% 100%; animation: phWave 2.4s ease-in-out infinite; }
+.ph-av { display: block; border-radius: 50%; object-fit: cover; }
+.hello .ph-av { width: 30px; height: 30px; }
+.chat-head .avatar .ph-av { width: 40px; height: 40px; }
+.chat-btn .ph-av { width: 58px; height: 58px; }
+.ph-ed img, .ph-av { animation: phBob 3.2s ease-in-out infinite; }
+.kb1 { animation: phKb1 16s ease-in-out infinite alternate; }
+.kb2 { animation: phKb2 18s ease-in-out infinite alternate; }
+.kb3 { animation: phKb3 14s ease-in-out infinite alternate; }
+@keyframes phKb1 { 0% { transform: scale(1.02) translate(0,0); } 100% { transform: scale(1.14) translate(-3%,-2%); } }
+@keyframes phKb2 { 0% { transform: scale(1.12) translate(3%,2%); } 100% { transform: scale(1.02) translate(-2%,0); } }
+@keyframes phKb3 { 0% { transform: scale(1.03); } 100% { transform: scale(1.12) translate(1%,-2%); } }
+@keyframes phShine { 0%, 60% { background-position: 150% 0; } 100% { background-position: -50% 0; } }
+@keyframes phFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes phBob { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-4deg); } 75% { transform: rotate(4deg); } }
+@keyframes phPop { 0%, 70%, 100% { transform: scale(1); } 80% { transform: scale(1.15); } 90% { transform: scale(0.97); } }
+@keyframes phWave { 0%, 60%, 100% { transform: rotate(0); } 70% { transform: rotate(-10deg); } 80% { transform: rotate(8deg); } 90% { transform: rotate(-5deg); } }
+@media (max-width: 600px) { .ph-cust { left: 6px; } .ph-ed { right: 6px; } .ph-bub { font-size: 13px; } }
+@media (prefers-reduced-motion: reduce) { .kb1, .kb2, .kb3, .ph-frame::after, .ph-bub, .ph-ed img, .ph-av, .ph-fixed, .ph-hi { animation: none; } }
